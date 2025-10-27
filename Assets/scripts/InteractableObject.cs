@@ -17,8 +17,17 @@ public class InteractableObject : MonoBehaviour
         // selectionmanager-idan on targeti imito gavaketet rom konkretul obieqtze roca miva mausi mashin aigos da ara shemogarenze daklikebit
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerInRange && SelectionManager.Instance.onTarget ) 
         {
-            Debug.Log("Item added to inventory");
-            Destroy(gameObject);
+            // if the inventory is not full
+            if (!InventorySystem.Instance.CheckifFull())
+            {
+                InventorySystem.Instance.AddToInventory(ItemName);
+                Destroy(gameObject);
+            }
+            else
+            {              
+                Debug.Log("Inventory is Full");
+            }
+         
         }
     }
 
