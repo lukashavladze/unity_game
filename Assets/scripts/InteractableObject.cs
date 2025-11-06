@@ -15,7 +15,7 @@ public class InteractableObject : MonoBehaviour
     void Update()
     {
         // selectionmanager-idan on targeti imito gavaketet rom konkretul obieqtze roca miva mausi mashin aigos da ara shemogarenze daklikebit
-        if (Input.GetKeyDown(KeyCode.Mouse0) && playerInRange && SelectionManager.Instance.onTarget ) 
+        if (Input.GetKeyDown(KeyCode.Mouse0) && playerInRange && SelectionManager.Instance.onTarget && SelectionManager.Instance.selectedObject == gameObject) 
         {
             // if the inventory is not full
             if (!InventorySystem.Instance.CheckifFull())

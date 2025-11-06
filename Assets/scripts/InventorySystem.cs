@@ -72,7 +72,12 @@ public class InventorySystem : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.B) && isOpen)
         {
             inventoryScreenUI.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
+
+            if (!CraftingSystem.instance.isOpen)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            
             isOpen = false;
         }
     }
@@ -120,6 +125,46 @@ public class InventorySystem : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+
+    public void RemoveItem(string nameToRemove, int amountToRemove)
+    {
+        int counter = amountToRemove;
+
+        for (var i = slotLitst.Count - 1; i >= 0; i--)
+        {
+            if (slotLitst[i].transform.childCount > 0)
+            {
+                // because name has clone in prefab
+                if (slotLitst[i].transform.GetChild(0).name == nameToRemove + "(Clone)" && counter != 0 )
+                {
+                    DestroyObject(slotLitst[i].transform.GetChild(0).gameObject);
+                    counter -= 1;
+                }
+
+            }
+        }
+
+
+
+    }
+
+    public void ReCalculateList()
+    {
+        itemList.Clear();
+
+        foreach(GameObject slot in slotLitst)
+        {
+            if(slot.transform.childCount > 0)
+            {
+                string name = slot.transform.GetChild(0).name;
+                string str2 = "(Clone)";
+                string result = name.Replace(str2, "");
+
+                itemList.Add(result);
+            }
         }
     }
 

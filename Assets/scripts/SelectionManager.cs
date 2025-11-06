@@ -12,6 +12,9 @@ public class SelectionManager : MonoBehaviour
 
     public bool onTarget;
 
+    //creating game object so when we pick up item it doesnot pick other items also when 2-3 objects are near to each other
+    public GameObject selectedObject;
+
     public GameObject interaction_Info_UI;
     Text interaction_text;
 
@@ -47,6 +50,7 @@ public class SelectionManager : MonoBehaviour
             if (Interactable && Interactable.playerInRange)
             {
                 onTarget = true;
+                selectedObject = Interactable.gameObject;
                 interaction_text.text = Interactable.GetItemName();
                 interaction_Info_UI.SetActive(true);
             }
